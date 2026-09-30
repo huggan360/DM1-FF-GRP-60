@@ -50,8 +50,7 @@ CATEGORICAL_FEATURES = (
 # -----------------------------------------------------------------------------
 
 def load_post_sample(connection, feature_sql: str, sample_size: int, seed: int) -> pd.DataFrame:
-    """Load a fixed-size random sample and keep engagement only for later interpretation."""
-    connection.execute("SET threads = 1")
+    """Load a deterministic hash sample and keep engagement only for interpretation."""
     return connection.execute(
         f"""
         SELECT
@@ -71,10 +70,13 @@ def load_post_sample(connection, feature_sql: str, sample_size: int, seed: int) 
             has_video,
             engagement_count_7d,
             high_engagement
-        FROM {feature_sql}
-        WHERE analysis_eligible
-        USING SAMPLE reservoir({max(1, sample_size)} ROWS)
-        REPEATABLE ({seed})
+        FROM (
+            SELECT *
+            FROM {feature_sql}
+            WHERE analysis_eligible
+        ) AS eligible_posts
+        ORDER BY hash(post_id || ':' || CAST({seed} AS VARCHAR))
+        LIMIT {max(1, sample_size)}
         """
     ).df()
 

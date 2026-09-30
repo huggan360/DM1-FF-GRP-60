@@ -93,7 +93,7 @@ stages skip files that have already been built.
    - Extracts text length, word, hashtag, URL, image, video, time, source, and
      author features.
    - Gives posts a common seven-day engagement window.
-   - Defines high engagement using a configurable percentile.
+   - Defines high engagement using the configurable 99th percentile by default.
 
 4. `04_exploratory_analysis.py`
    - Creates the initial data-quality and descriptive CSV files.
@@ -144,3 +144,9 @@ accidentally add user content or multi-gigabyte files to Git.
 
 See [DATA_DICTIONARY.md](DATA_DICTIONARY.md) for the table assumptions and
 generated fields.
+
+## LaTeX report
+
+The Overleaf-ready project report is in `latex/main.tex`. Its required figures
+are self-contained under `latex/plots/`, and `latex/main.pdf` is a compiled
+six-page preview.

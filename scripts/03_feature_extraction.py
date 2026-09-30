@@ -256,8 +256,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--high-quantile",
         type=float,
-        default=0.90,
-        help="Percentile used to define high engagement (default: 0.90).",
+        default=0.99,
+        help="Percentile used to define high engagement (default: 0.99).",
     )
     parser.add_argument(
         "--top-sources",
