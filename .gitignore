@@ -1,1 +1,10 @@
 /data/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+reports/generated/
+models/
+*.duckdb
+*.duckdb.wal
